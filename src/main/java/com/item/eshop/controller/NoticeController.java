@@ -6,6 +6,9 @@ import com.item.eshop.service.UserService;
 import com.item.eshop.util.JsonObject;
 import com.item.eshop.util.RepayPush;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +36,13 @@ public class NoticeController {
     // ======================  admin background management system interface ( user interceptor) =============================
     // category: 1:订单满减, 2:订单打折 3:充值满减  4:充值打折
 
+    @ApiOperation(value="（后台端）添加营销规则",notes="返回值Int：1：成功，0：失败")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "content", value = "营销规则内容", required = true ,dataType = "String",paramType = "query"),
+            @ApiImplicitParam(name = "title", value = "营销规则标题", required = true ,dataType = "String",paramType = "query"),
+            @ApiImplicitParam(name = "category", value = "营销规则类型", required = true ,dataType = "Integer",paramType = "query"),
+            @ApiImplicitParam(name = "time", value = "营销规则时限", required = true ,dataType = "String",paramType = "query")
+    })
     @PostMapping("/add")
     public int add(@RequestParam(value = "title")String title,
                    @RequestParam(value = "content")String content,
