@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.item.eshop.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.item.eshop.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="identity_card" property="identityCard" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="passwd" property="passwd" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="sign_time" property="sign_time" jdbcType="TIMESTAMP" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone, identity_card, photo, passwd, school, status,sign_time,money,avatar,username,score,other
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.item.eshop.model.User" >
+    insert into user (id, phone, identity_card, 
+      photo, passwd, school, 
+      status, sign_time,money,avatar,username,score,other)
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{identityCard,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{sign_time,jdbcType=TIMESTAMP}, #{money,jdbcType=DECIMAL}, #{avatar,jdbcType=VARCHAR}
+      , #{username,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{other,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.item.eshop.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="identityCard != null" >
+        identity_card,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="passwd != null" >
+        passwd,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <!-- 2018-8-15 update : sign_time,money,avatar,username,score,other -->
+      <if test="sign_time != null" >
+        sign_time,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null" >
+        #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <!-- 2018-8-15 update : sign_time,money,avatar,username,score,other -->
+      <if test="sign_time != null" >
+        #{sign_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.item.eshop.model.User" >
+    update user
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="identityCard != null" >
+        identity_card = #{identityCard,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <!-- 2018-8-15 update : sign_time,money,avatar,username,score,other -->
+      <if test="sign_time != null" >
+        status = #{sign_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        status = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="avatar != null" >
+        status = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        status = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        status = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        status = #{other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.item.eshop.model.User" >
+    update user
+    set phone = #{phone,jdbcType=VARCHAR},
+      identity_card = #{identityCard,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+    <!-- 2018-8-15 update : sign_time,money,avatar,username,score,other -->
+      sign_time = #{sign_time,jdbcType=TIMESTAMP},
+      money = #{money,jdbcType=DECIMAL},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      other = #{other,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByLogin" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where phone = #{param1} AND passwd = #{param2}
+  </select>
+  <!--add: chan  2018/4/10-->
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  select
+  <include refid="Base_Column_List" />
+  from user
+  where phone = #{param1}
+</select>
+  <select id="selectMore" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user LIMIT #{param1},#{param2}
+  </select>
+  <select id="selectMoreByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where status = #{param3}
+    LIMIT #{param1},#{param2}
+  </select>
+</mapper>

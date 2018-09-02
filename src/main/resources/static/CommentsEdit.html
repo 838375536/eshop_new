@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>用户评论</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/font.css" type="text/css" />
+    <link rel="stylesheet" href="css/app.css" type="text/css" />
+
+</head>
+
+
+
+<body>
+
+<div class="app app-header-fixed"  >
+    <!-- content -->
+    <div class="app-content">
+        <div ui-butterbar></div>
+
+        <div class="app-content-body fade-in-up">
+            <!-- COPY the content from "tpl/" -->
+            <div class="hbox hbox-auto-xs hbox-auto-sm">
+                <div class="col">
+                    <div style="background:url(img/c4.jpg) center center; background-size:cover">
+                        <div class="wrapper-lg bg-white-opacity">
+                            <div class="row m-t">
+                                <div class="col-sm-7">
+                                    <a href class="thumb-lg pull-left m-r">
+
+                                    </a>
+                                    <div class="clear m-b">
+                                        <div class="m-b m-t-sm">
+                                            <span class="h3 text-black"></span>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!--mainuser-->
+                    <div class="padder" >
+                        <div class="streamline b-l b-info m-l-lg m-b padder-v" id="main" >
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- PASTE above -->
+        </div>
+    </div>
+    <!-- /content -->
+    <!-- aside right -->
+    <div class="app-aside-right pos-fix no-padder w-md w-auto-xs bg-white b-l animated fadeInRight hide">
+        <div class="vbox">
+            <div class="wrapper b-b b-t b-light m-b">
+                <a href class="pull-right text-muted text-md" data-toggle="class:show" data-target=".app-aside-right"><i class="icon-close"></i></a>
+
+            </div>
+            <div class="row-row">
+                <div class="cell">
+                    <div class="cell-inner padder">
+                        <!-- chat list -->
+
+
+                        <!-- / chat list -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- / aside right -->
+    <!-- footer -->
+    <div class="app-footer wrapper b-t bg-light">
+      <!--   &copy; 2018 <a href="/sellerIndex.html" target="_blank" title=""></a> -->
+    </div>
+    <!-- / footer -->
+</div>
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    //日期格式化
+    function getNowFormatDate( date) {
+
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
+    }
+    function crtTimeFtt(val) {
+        if (val != null) {
+            var date = new Date(val);
+            return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        }
+    }
+
+    //生成评论格式
+    function addComment(phone, photo, content , sendtime, image){
+        if(photo==undefined||photo==null||photo==""){photo="img/a4.jpg";}
+            if(image==undefined||image==null||image=="")
+        $("#main").append(" <div><a class='pull-left thumb-sm avatar m-l-n-md'> <img src="+photo+"  alt='...'></a><div class='m-l-lg'><div class='m-b-xs'> "+phone+"<span class='text-muted m-l-sm pull-right'>" + sendtime+"</span></div> <div class='m-b'><div>"+content+"</div></div></div>");
+            else
+                $("#main").append(" <div><a class='pull-left thumb-sm avatar m-l-n-md'> <img src="+photo+"  alt='...'></a><div class='m-l-lg'><div class='m-b-xs'> "+phone+"<span class='text-muted m-l-sm pull-right'>" + sendtime+"</span></div> <div class='m-b'><div class='m-b'>"+content+"</div><img src="+image+" class='b b-a wrapper-xs bg-white img-responsive'></div></div>");
+
+    }
+    function addReComment(phone, photo, content ,id, sendtime, image){
+        if(photo==undefined||photo==null||photo==""){photo="img/a4.jpg";}
+        if(image==undefined||image==null||image=="")
+            $("#main").append(" <div><a class='pull-left thumb-sm avatar m-l-n-md'> <img src="+photo+"  alt='...'></a><div class='m-l-lg'><div class='m-b-xs'> "+phone+"<span class='text-muted m-l-sm pull-right'>" + sendtime+"</span></div> <div class='m-b'><div>"+content+"<a onclick='recommentDel("+id+")' title='删除' href='javascript:;'class='btn btn-xs btn-warning' style='float: right'><i class='icon-trash  bigger-120' ></i></a></div></div></div>");
+    else
+        $("#main").append(" <div><a class='pull-left thumb-sm avatar m-l-n-md'> <img src="+photo+"  alt='...'></a><div class='m-l-lg'><div class='m-b-xs'> "+phone+"<span class='text-muted m-l-sm pull-right'>" + sendtime+"</span></div> <div class='m-b'><div class='m-b'>"+content+"<a  onclick='recommentDel("+id+")' title='删除' href='javascript:;'class='btn btn-xs btn-warning' style='float: right'><i class='icon-trash  bigger-120'></i></a></div><img src="+image+" class='b b-a wrapper-xs bg-white img-responsive'></div></div>");
+
+    }
+    //生成form表单上传回复内容
+    function getForm(){
+        $("#main").append("<div> <a class='pull-left thumb-sm avatar m-l-n-md'></a><div class='m-l-lg m-b-lg'><div class='m-b-xs'>  <a href class='h4'></a> <span class='text-muted m-l-sm pull-right'></span></div><div> <div class='m-b'></div><div class='panel panel-default m-t-md m-b-n-sm pos-rlt'><form><textarea  id='content' onkeyup='limitNumber()' class='form-control no-border' rows='3' placeholder='输入你的评论...'></textarea></form><div id='commentDIV' class='panel-footer bg-light lter'> <button onclick='comment()' class='btn btn-info pull-right btn-sm'>评论</button>  <ul class='nav nav-pills nav-sm'>  <li><i class='fa fa-camera text-muted'></i></li></ul></div> </div></div></div></div>")
+    }
+    $(function(){
+        var shopId=$.cookie('shopId');
+        var commentId= $.cookie('commentId');
+        var commentphone=$.cookie('commentphone');
+        var content=$.cookie('content');
+        var image=$.cookie('image');
+        var sendtime=$.cookie('sendtime');
+        var total;
+
+
+        addComment(commentphone, "", content , sendtime, image);
+
+        var total=0;
+        $.ajax({
+            url: "/comments/checkAllByCommentsId",
+            type: 'get',
+            dataType: 'json',
+            async:false,
+            data:{"commentsId":commentId },
+            timeout: 1000,
+            success: function (data, status) {
+                total=data.length;
+                var n=10;
+                var diff = total/n;
+                var p = Math.ceil(diff);
+                $.ajax({
+                    url: "/comments/checkByCommentsId",
+                    type: 'get',
+                    async:false,
+                    dataType: 'json',
+                    data:{"commentsId":commentId,"page":p,"n":10 },
+                    timeout: 1000,
+                    success: function (data, status) {
+
+                        for(var i=0;i<data.length;i++){
+                            data[i].sendtime=crtTimeFtt(data[i].sendtime);
+                            var sendId=data[i].shopId;
+
+                            addReComment(sendId, "", data[i].contents ,data[i].id, data[i].sendtime, data[i].image)
+                        }
+                        getForm();
+                    },
+                    fail: function (err, status) {
+                        console.log(err)
+                    }
+                })
+            },
+            fail: function (err, status) {
+                console.log(err)
+            }
+        })
+        //请求comment对应的回复得到回复数量，生成评论页面，在最后添加form 插入回复借口
+
+
+        // addCommetn(1321,"img/a4.jpg","test","2018-7-10","");
+    })
+
+    // var app = angular.module('myApp', ['myModule']);
+    // app.controller('recommentsCtrl', function($scope,$http){
+    //     var comment=getCookie('comment');
+    //     console.log(comment.id)
+    //
+    // })
+    //插入回复
+    function comment(){
+        var shopId=$.cookie('shopId');
+        var commentId= $.cookie('commentId');
+        var commentphone=$.cookie('commentphone');
+
+        var image=$.cookie('image');
+
+        var text=$("#content").val();
+            if(text!=null&&text!=""&&text!=undefined){
+                $.ajax({
+                url: "/comments/insertReComments",
+                type: 'get',
+                dataType: 'json',
+                async:false,
+                data:{"shopId":shopId,"commentsId":commentId,"image":"","phone":commentphone,"content":text },
+                timeout: 1000,
+                success: function (data, status) {
+                    alert("回复成功！！")
+                },
+                fail: function (err, status) {
+                    console.log(err)
+                }
+            })}
+else{alert("请输入评论内容！")}
+        location.reload();
+    }
+    function limitNumber(){
+        var number=$("#content").val().length;
+        if(number>200){
+            alert("评论字数限制在２００字以内！！")
+            $("#content").val($("#content").val().substring(0, 200));
+        }
+    }
+    //上传图片
+    function selectImage(file) {
+        if (!file.files || !file.files[0]) {
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            document.getElementById('image').src = evt.target.result;
+            image = evt.target.result;
+        }
+        reader.readAsDataURL(file.files[0]);
+    }
+    function uploadPicture(){
+        var image;
+        $("#commentDIV").append("<div style=’float:left;border:dotted 1px gray;border-radius:3px; ‘> <img id='image' src='images/uploadGoodImg.png' alt=''  class='b b-a wrapper-xs bg-white img-responsive'> </div>");
+
+    }
+    function recommentDel(id){
+        $.ajax({
+            url: "/comments/deleteReComments",
+            type: 'get',
+            async:false,
+            dataType: 'json',
+            data:{"recommentsId":id },
+            timeout: 1000,
+            success: function (data, status) {
+                alert("撤销回复成功！！")
+                location.reload();
+
+            },
+            fail: function (err, status) {
+                console.log("撤销回复失败！！")
+            }
+        })
+    }
+</script>
+</body>
+</html>
